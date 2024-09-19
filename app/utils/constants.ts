@@ -1,0 +1,6 @@
+const GRANT_TYPE = process.env.DRUPAL_GRANT_TYPE
+const CLIENT_ID = process.env.DRUPAL_CLIENT_ID
+const CLIENT_SECRET = process.env.DRUPAL_CLIENT_SECRET
+const BASE_URL = process.env.BASE_URL
+
+export { GRANT_TYPE, CLIENT_ID, CLIENT_SECRET, BASE_URL }
