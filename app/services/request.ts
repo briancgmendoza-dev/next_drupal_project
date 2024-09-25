@@ -8,7 +8,7 @@ interface RequestOptions<T extends HttpMethod> {
   payload?: T extends 'POST' | 'PUT' | 'PATCH' ? any : never;
   headers?: Record<string, string>;
   query?: Record<string, string>;
-  signal: AbortSignal;
+  signal?: AbortSignal;
 }
 
 async function request<T extends HttpMethod>({
