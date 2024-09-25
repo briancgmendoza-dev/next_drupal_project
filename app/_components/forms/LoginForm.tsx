@@ -1,11 +1,17 @@
 import React, { PropsWithChildren, useState } from "react"
-import { Box } from "@mui/material"
 import { useRouter } from "next/navigation";
+
+import { Form } from "@/app/_components/forms";
+import { Text } from "@/app/_components/ui/Text";
 
 import { GRANT_TYPE, CLIENT_ID, CLIENT_SECRET } from "@/app/utils/constants";
 import { AuthenticateService } from "@/app/services/public/authenticate";
 
-const LoginForm = React.forwardRef<HTMLFormElement, PropsWithChildren>((props, ref) => {
+type TLoginForm = PropsWithChildren & {
+  setDisabled: (value: boolean) => void;
+}
+
+const LoginForm = React.forwardRef<HTMLFormElement, TLoginForm>(({ setDisabled, ...props }, ref) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -13,6 +19,13 @@ const LoginForm = React.forwardRef<HTMLFormElement, PropsWithChildren>((props, r
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
+    const username = formData.get('username') as string
+    const password = formData.get('password') as string
+
+    if (username !== '' || password !== '') {
+      setDisabled(false)
+    }
+
     formData.append('grant_type', `${GRANT_TYPE}`)
     formData.append('client_id', `${CLIENT_ID}`)
     formData.append('client_secret', `${CLIENT_SECRET}`)
@@ -38,12 +51,12 @@ const LoginForm = React.forwardRef<HTMLFormElement, PropsWithChildren>((props, r
 
   }
   return (
-    isLoading ? (<Box>Loading...</Box>) : (
-      <Box
-        component="form"
+    isLoading ? (<Text>Loading...</Text>) : (
+      <Form
         onSubmit={onSubmit}
         ref={ref}
         {...props}
+        sx={{ width: "90%", border: "1px solid red" }}
       />
     )
   )

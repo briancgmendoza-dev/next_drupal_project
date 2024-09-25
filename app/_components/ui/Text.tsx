@@ -1,7 +1,7 @@
 import React from "react"
 import { SxProps, Typography, TypographyProps } from "@mui/material";
 
-const Text = React.forwardRef<HTMLParagraphElement, TypographyProps>((props, ref) => {
+const Text = React.forwardRef<HTMLParagraphElement, TypographyProps>(({ sx, ...props }, ref) => {
   const defaultSx: SxProps = {
     color: "#fff",
     fontSize: {
@@ -14,7 +14,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TypographyProps>((props, ref
   return (
     <Typography
       ref={ref}
-      sx={defaultSx}
+      sx={{ ...defaultSx, ...sx }}
       {...props}
     />
   )
