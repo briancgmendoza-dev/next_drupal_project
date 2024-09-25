@@ -15,6 +15,7 @@ export const AuthenticateService = {
         signal
       })
       if (response.data.access_token) {
+        localStorage.setItem("token", response.data.access_token)
         return { isAuthenticated: true }
       }
       return { isAuthenticated: false }
